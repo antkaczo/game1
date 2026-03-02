@@ -1,0 +1,114 @@
+import  java.util.Random;
+import java.util.Scanner;
+public class gra {
+   public static void main(String[] args) {
+     wybór(100,125);
+
+
+
+
+
+
+
+
+
+
+   }
+       static int enemy_attack(){
+           Random random = new Random();
+           int attack = random.nextInt(15);
+           while (attack>15){
+               attack= random.nextInt();
+           }
+           System.out.println("Goblin dźga cię sztyletem i zadajce ci " + attack + " obrażeń");
+           return attack;
+   }
+
+
+       static int PlayerAttack(){
+           Random random = new Random();
+           int attack = random.nextInt(25);
+           while (attack>25){
+               attack= random.nextInt();}
+
+
+
+
+           return attack;
+
+
+       }
+
+
+       static int leczenie(int PlayerHP){
+           PlayerHP+=20;
+           if (PlayerHP>100){
+               int odejmowanie = PlayerHP-100;
+               PlayerHP=PlayerHP-odejmowanie;}
+
+
+           return PlayerHP;
+       }
+
+
+       static int kula_ognia(){
+           Random random = new Random();
+           int obrazenia = random.nextInt(50);
+           System.out.println("Rzucasz kulę ognia która zadaje " + obrazenia + " punktów życia");
+           return obrazenia;}
+
+
+
+
+       static void wybór(int HP, int EnemyHP){
+           System.out.println("Przmierzałeś ciemny dębowy las aż na twoej drodze stanął goblin");
+       Scanner  scanner = new Scanner(System.in);
+         while (EnemyHP>0){
+             System.out.println("twoje HP wynosi " + HP
+               + "\n HP goblina wynosi " + EnemyHP);
+
+
+             System.out.println("Co zamierzasz zrobić?\n" +
+                       "1 - zaatakować\n" +
+                       "2 - użyć kuli ognia\n" +
+                       "3- uleczyć się\n");
+               int decyzja = scanner.nextInt();
+               if (decyzja == 1){
+                   int attack = PlayerAttack();
+                   System.out.println("zadałeś potworowi " + attack + "punktów obrażeń");
+                   EnemyHP=EnemyHP-attack;
+               }else if(decyzja ==2 ){
+
+
+                   int attaack =kula_ognia();
+                   EnemyHP=EnemyHP-attaack;
+
+
+           } else if (decyzja==3) {
+                   HP=leczenie(HP);
+
+
+               }
+               else{
+                   System.out.println("nie ma takiej opcji do wyboru. tura stracona");
+               }
+             if (EnemyHP>0){
+                   int enemyAttack = enemy_attack();
+                   HP=HP-enemyAttack;
+               if (EnemyHP==0){
+                   break;
+               }
+         }
+
+
+
+
+
+
+       }
+
+
+           System.out.println("Gratulacje!!!\n Pokonałeś potwora. Możesz dalej podążać swoją drogą");}}
+
+
+

@@ -2,6 +2,8 @@ import java.util.Random;
 
 public class Player {
 
+    Random random = new Random();
+
     static int HP;
     int Mana;
     int zloto;
@@ -9,6 +11,7 @@ public class Player {
     boolean sztylet=false;
     int secondattack;
     int mainattack=26;
+    boolean playernegative;
 
     double player_effects=1.0;
 
@@ -20,7 +23,6 @@ public class Player {
     }
 
     public int PlayerAttack() {
-        Random random = new Random();
         int attack = random.nextInt(mainattack+1);
         while (attack > 25) {
             attack = random.nextInt();
@@ -40,12 +42,24 @@ public class Player {
         return HP;
     }
 
+    public int SecondAttack(){
+        int obrazenia = random.nextInt(secondattack+1);
+        if (obrazenia>=(secondattack-2)){
+            System.out.println("Trafienie krytyczne");
+        }
+        if (obrazenia==0){
+            System.out.println("Nie trafiłeś");
+        }
+        return obrazenia;
+
+    }
+
     public int kula_ognia(){
         if (Mana <25){
             System.out.println("Nie masz wystarczająco many aby użyć tego zaklęcia");
             return Mana ;
+            //Coded by Antkaczo
         }else{
-            Random random = new Random();
             int obrazenia = random.nextInt(51);
             obrazenia*=player_effects;
             if (obrazenia>=47){
@@ -72,5 +86,19 @@ public class Player {
     public void DemageTaken(int obrazenia, String name){
         System.out.println(name + " odbiera ci " + obrazenia + " punktów życia swoim atakiem");
         HP=HP-obrazenia;
+    }
+
+    public void negatywne(int obrazenia, int tury, String rodzaj){
+        if (rodzaj=="krwawienie"&&tury>0){
+            System.out.println("Tracisz " + obrazenia + " punktów życia od krwawienia");
+            HP-=obrazenia;
+        }
+        if (tury==0 && "krwawienie"==rodzaj){
+            System.out.println("Krwawienie ustało");
+        }
+
+        if (tury==0){
+            playernegative=false;
+        }
     }
 }

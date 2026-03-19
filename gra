@@ -1,6 +1,7 @@
 import  java.util.Random;
 import java.util.Scanner;
 public class gra {
+    public static boolean idzdalej=false;
     public static void main(String[] args) throws InterruptedException {
 
         Player gracz = new Player(100,50,0,0);
@@ -10,7 +11,8 @@ public class gra {
                 "1 - w lewo\n" +
                 "2 - w prawo\n");
         Scanner scanner = new Scanner(System.in);
-        int wybór = scanner.nextInt();
+
+        int wybór= scanner.nextInt();
        while (1==1){
             if (wybór==1){
                 goblin(gracz.HP, gracz.Mana);
@@ -34,19 +36,24 @@ public class gra {
                 miasto(gracz);
                 }
             if (wybór==2){
-               // polana(HP,Mana);
+                polana(gracz);
                 }
+            if (idzdalej){
+                break;
+            }
 
 
-           if (wybór!=1 && wybór!=2){System.out.println("nie ma takiej opcji proszę wprowadzić poprawną opcje");
+            else {System.out.println("nie ma takiej opcji proszę wprowadzić poprawną opcje");
             wybór=scanner.nextInt();}
-           else {
+           if (wybór==1||wybór==2){
                System.out.println("Dokąd chesz się teraz udać\n 1 - miasto \n2 - polana");
                wybór = scanner.nextInt();
            }
         }
 
     }
+
+    int wybor1;
 
     static void goblin(int HP, int mana){
         int EnemyHP = 70;
@@ -93,6 +100,7 @@ public class gra {
             }
 
         }
+        scanner.close();
 
 
             if (HP<=0){
@@ -151,14 +159,15 @@ public class gra {
                 System.exit(0);}
 
         }
+        scanner.close();
 
 
         System.out.println("Gratulacje!!!\n Pokonałeś ogra. Możesz dalej podążać swoją drogą");}
 
 
 static void miasto(Player gracz) throws InterruptedException {
-      
 
+    int wybor1;
         miasto Miasto = new miasto();
     System.out.println("Wkroczyłeś do miasta. Na środku miasta znajduje się plac na którym grajek przygrywa melodię.\n" +
             "W oddali widać brzeg do którego prowadzą kręte ulice. \n" +
@@ -166,32 +175,82 @@ static void miasto(Player gracz) throws InterruptedException {
             "Zauważasz też karczmę oraz stoisko wróźki.\n" +
             "Gdzie chesz się udać?\n 1- wybrzeże \n 2 - stragany rybackie\n 3- karczma\n 4 - stoisko wróźki\n 5- zawrócić i wyjść z miasta");
     Scanner scanner = new Scanner(System.in);
-    int wybor = scanner.nextInt();
+    wybor1 = scanner.nextInt();
     while (1==1){
-        if (wybor==1){
+        if (wybor1==1){
 
             Miasto.wybrzerze();
         }
-        if (wybor==2){
+        if (wybor1==2){
             Miasto.Stragany();
         }
-        if (wybor==3){
+        if (wybor1==3){
             Miasto.Karczma(gracz);
 
         }
-        if (wybor==4){
+        if (wybor1==4){
             Miasto.StoiskoWrożki(gracz);
         }
-        if (wybor==5){
+        if (wybor1==5){
             System.out.println("Zawracasz i udajesz się spowrotem pod drogowskaz.");
             break;
         }
-        if (wybor==1 || wybor==2 || wybor==3 || wybor==4 || wybor==5){
+        if (wybor1==1 || wybor1==2 || wybor1==3 || wybor1==4 || wybor1==5){
             System.out.println("Wróciłeś na plack miejski. Co zamierzasz teraz zrobić?Gdzie chesz się udać? \n 1-pójść na wybrzeże \n 2 -przejść się po straganach rybackich\n 3- udać się do karczmy \n 4 - odwiedzić stoisko wróźki\n 5- zawrócić i wyjść z miasta\n");
-            wybor= scanner.nextInt();
+            wybor1= scanner.nextInt();
 
         }
+        scanner.close();
     }
+}
+
+static void polana(Player gracz) throws InterruptedException {
+   int test;
+   int test1;
+    Scanner scanner = new Scanner(System.in);
+        System.out.println("Wkrosczyłeś na polanę. Widzisz jak ścieżka którą podążasz rozcina kwiecistą łąkę\n" +
+            "Gdzie niespojrzysz widzisz kwiaty w najróźniejszych kolorach. Dostrzegasz że po lewej stronie\n" +
+            "pośród kwiatów coś się porusza, zaś po prawej stronie widzisz górkę na szczycie której znajduje się\n" +
+            "łysa plama bez kwiatów.\n" +
+            "Co zamierzasz zrobić?\n" +
+            "1 - sprawdzić co się porusza w trawie\n" +
+            "2 - pójść na górkę\n" +
+            "3 - podażać dalej ścieżką\n" +
+            "4 - zawrócić");
+        Polana polana = new Polana(gracz);
+        test = scanner.nextInt();
+        while (1==1){
+            if (test==1){
+                polana.wilk();
+            } else if (test==2) {
+                polana.Gorka(gracz);
+            }else if (test==3){
+                System.out.println("Jeżeli dalej pójdziesz ścieżką to nie będziesz mógł wrócić na polane i do miasta.\n" +
+                        "Czy napewno chcesz isć/\n" +
+                        "1 - tak\n" +
+                        "2 - nie");
+                test1=scanner.nextInt();
+                if (test1==1){
+                    idzdalej=true;
+                        break;}
+
+            } else if (test==4) {
+                System.out.println("Zawracasz i udajesz się spowrotem pod drogowskaz.");
+                break;
+
+            }else{
+                System.out.println("Nie ma takiej opcji. Proszę wybrać poprawną opcje");
+                test= scanner.nextInt();
+            }
+            if (test==1|test==2||test==3){
+                System.out.println("Co zamierzasz teraz zrobić?\n" +
+                        "1 - sprawdzić co się dzieje w trawie\n" +
+                        "2 - pójść na górkę\n" +
+                        "3- podążać dalej ścieżką\n" +
+                        "4 - zawrócić");
+                test=scanner.nextInt();
+            }
+        }
 }
 
 
@@ -327,4 +386,5 @@ static void miasto(Player gracz) throws InterruptedException {
             System.exit(0);
         }
         System.out.println("Pokonałeś sekretnego bossa. Gratulację!");
+        scanner.close();
 }}
